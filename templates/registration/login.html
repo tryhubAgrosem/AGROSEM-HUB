@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block title %}
+<title>Авторизація</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+{% block header-logout %}
+{% endblock %}
+
+{% if form.errors %}
+<div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Помилка авторизації</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Логін або пароль введені невірно.
+            </div>
+        </div>
+    </div>
+</div>
+<script>$('#modal').modal();</script>
+{% endif %}
+
+<!-- {% if next %}
+{% if user.is_authenticated %}
+<p>
+    Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.
+</p>
+{% else %}
+<p>Please login to see this page.</p>
+{% endif %}
+{% endif %} -->
+
+<form class="form-signin text-center" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <!-- <img class="mb-4" src="{% static 'imgs/logo.png' %}" alt="" width="72" height="72"> -->
+    <!-- <h1 class="h3 mb-3 font-weight-normal">Авторизація</h1> -->
+    <input name="username" class="form-control" placeholder="Логін" required autofocus />
+    <input type="password" name="password" class="form-control" placeholder="Пароль" required autofocus />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Увійти</button>
+</form>
+{% endblock %}

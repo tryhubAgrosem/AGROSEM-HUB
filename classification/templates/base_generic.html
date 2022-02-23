@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    {% block title %}
+    <title>Nomenclatures</title>
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <style>
+        .shadow-p {
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important
+        }
+    </style>
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+    {% block header %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-p" style="padding-left: 5%; padding-right: 5%;">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'imgs/logo.png' %}" width="30" height="30" style="margin-right: 10px;" class="d-inline-block align-top" alt="">
+            HUB AGROSEM
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% block header-links %}
+                {% endblock %}
+            </ul>
+            {% block header-buttons %}
+            {% endblock %}
+            {% block header-logout %}
+            <a href="{% url 'logout' %}" class="btn btn-outline-dark">Вихід</a>
+            {% endblock %}
+        </div>
+    </nav>
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block navigation %}
+    {% if pages %}
+    <nav style="margin-top: 20px;">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}" tabindex="-1">Попередня</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Попередня</a>
+            </li>
+            {% endif %}
+
+            {% for page in pages %}
+            <li class="page-item {% if page == page_obj.number %}active{% endif %}">
+                <a class="page-link" href="{{ request.path }}?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Наступна</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Наступна</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

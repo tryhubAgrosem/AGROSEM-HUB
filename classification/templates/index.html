@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Головна сторінка</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    .menu {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        color: #ffffff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <a class="btn btn-dark btn-lg btn-block" href="{% url 'nomenclatures' type='as' %}">AS</a>
+    <a class="btn btn-dark btn-lg btn-block" href="{% url 'nomenclatures' type='agm' %}">AgM</a>
+</div>
+{% endblock %}
